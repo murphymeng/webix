@@ -1,5 +1,5 @@
 安装
 npm install
 
-运行webpack-dev-server
+运行
 npm run dev
