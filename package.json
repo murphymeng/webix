@@ -1,0 +1,18 @@
+{
+  "name": "webix",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./js/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack-dev-server --inline --hot --quiet",
+    "build": "webpack -p"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "html-loader": "^0.4.3",
+    "webpack": "^1.3.7",
+    "webpack-dev-server": "^1.14.1"
+  }
+}

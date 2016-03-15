@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <!-- <script type="text/javascript" src='./js/jquery.js'></script>
+    <script type="text/javascript" src='./js/vue.js'></script> -->
+
+    <script src="./bundle.js"></script>
+
+    <!-- <link rel="stylesheet" type="text/css" href="../style/style.css"> -->
+    <link rel="stylesheet" type="text/css" href="style/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="style/style.css">
+    <!-- <script src="./js/bootstrap.js"></script>
+    <script src="./js/vue-router.js"></script> -->
+    <!-- <script src="./js/grid.js"></script> -->
+
+  </head>
+  <body>
+    <div id="app" class="container">
+
+        <nav class="navbar navbar-default">
+          <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul class="nav navbar-nav">
+                <li><a v-link="{ path: '/grid' }">Grid</a></li>
+                <li><a v-link="{ path: '/form' }">Form</a></li>
+                <li><a href="#">Link</a></li>
+              </ul>
+            </div><!-- /.navbar-collapse -->
+          </div><!-- /.container-fluid -->
+        </nav>
+
+
+        <router-view></router-view>
+
+    </div>
+
+  </body>
+</html>
