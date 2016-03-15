@@ -1,4 +1,3 @@
-var $http = require('../vendors/rest.js');
 var grid = Vue.extend({
     template: require('../template/grid.html'),
     data: function (transition) {
@@ -50,7 +49,7 @@ var grid = Vue.extend({
             var self = this;
             console.log('hook-example activated!')
 
-            this.$http({url: '/data/user.json', method: 'GET'}).then(function (response) {
+            this.$http({url: './data/user.json', method: 'GET'}).then(function (response) {
                   self.items = response.data;
             }, function (response) {
                   // error callback

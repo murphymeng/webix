@@ -3,7 +3,8 @@ module.exports = {
     './js/main.js'
   ],
   output: {
-    path: __dirname + '/build',
+    path: __dirname,
+    sourceMapFilename: "[file].map",
     filename: 'bundle.js'
   },
   module: { loaders: [
