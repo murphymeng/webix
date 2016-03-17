@@ -1,6 +1,15 @@
 var Form = Vue.extend({
     template: require('../template/form.html'),
     data: function (transition) {
+        return {
+            cities: [{
+                id: 1,
+                name: '上海'
+            }, {
+                id: 2,
+                name: '北京'
+            }]
+        }
     },
     computed: {
 

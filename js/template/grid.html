@@ -1,26 +1,30 @@
 <div id="grid">
-    {{mf}}
     <button id="add" type="button" name="button"  class="btn btn-default"><a v-link="{ path: '/addUser' }">添加用户</a></button>
     <button id="add" type="button" name="button" v-on:click="addUser" class="btn btn-default">添加用户弹窗</button>
     <button id="remove" type="button" name="button" v-on:click="removeUsers" class="btn btn-default">删除用户</button>
     <br /><br />
+    搜索 <input name="query" v-model="filterKey">
+    <br /><br />
     <table class="table table-bordered table-striped">
         <tr>
             <th><input v-model="allCheck" type="checkbox" /></th>
-            <th>id</th>
+            <template v-for="item in columns">
+                <th v-on:click="sortBy(item.field)">{{item.name}}<span class="arrow"
+                    :class="sortOrders[item.field] > 0 ? 'asc' : 'dsc'"></span>
+                </th>
+            </template>
+            <!-- <th><input v-model="allCheck" type="checkbox" /></th>
+            <th><div v-on:click="sort" class="webix_hcell" style="position: relative;">idAA<div class="webix_ss_sort_asc"></div></div></th>
             <th>name</th>
             <th>age</th>
-            <th></th>
+            <th></th> -->
         </tr>
-        <template v-for="item in items">
-            <tr>
-                <td><input type="checkbox" v-model="item.checked" /></td>
-                <td>{{item.id}}</td>
-                <td><a v-on:click="editUser(item)" style="cursor:pointer">{{item.name}} </a></td>
-                <td><a v-on:click="editUser(item)" style="cursor:pointer">{{item.age}} </a></td>
-                <td><span v-on:click="removeUser(item)" >删除</span></td>
-            </tr>
-        </template>
+        <tr v-for="item in items | orderBy sortKey sortOrders[sortKey] | filterBy filterKey 'name'">
+            <td><input type="checkbox" v-model="item.checked" /></td>
+            <td>{{item.id}}</td>
+            <td><a v-on:click="editUser(item)" style="cursor:pointer">{{item.name}} </a></td>
+            <td>{{item.age}}</td>
+        </tr>
     </table>
 
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">

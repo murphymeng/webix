@@ -2,8 +2,26 @@ var grid = Vue.extend({
     template: require('../template/grid.html'),
     data: function (transition) {
         var self = this;
+        var columns = [{
+            field: 'id',
+            name: 'id'
+        }, {
+            field: 'name',
+            name: '姓名'
+        }, {
+            field: 'age',
+            name: '年龄'
+        }];
+        var sortOrders = {}
+        columns.forEach(function (item) {
+            sortOrders[item.field] = 1
+        });
         return {
-            items: []
+            filterKey: '',
+            columns: columns,
+            items: [],
+            sortOrders: sortOrders,
+            sortKey: ''
         }
     },
     computed: {
@@ -20,8 +38,11 @@ var grid = Vue.extend({
         }
     },
     methods: {
+        sortBy: function(key) {
+            this.sortKey = key;
+            this.sortOrders[key] = this.sortOrders[key] * -1;
+        },
         removeUsers: function () {
-
             this.items = this.items.filter(function (item) {
                 return !item.checked;
             })
@@ -33,6 +54,7 @@ var grid = Vue.extend({
             $('#exampleModal').modal();
         },
         editUser: function (item) {
+            console.log('edit');
             this.username = item.name
             $('#exampleModal').modal();
         },
@@ -54,6 +76,11 @@ var grid = Vue.extend({
             }, function (response) {
                   // error callback
             });
+
+            this.columns.forEach(function (key) {
+              self.sortOrders[key] = 1
+          });
+
             transition.next()
         },
         deactivate: function (transition) {
