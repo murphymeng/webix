@@ -1,4 +1,8 @@
-<form>
+<form is="vform" v-ref:myform>
+    <div class="form-group">
+      <label for="age">下拉框</label>
+      <combo v-ref:city url="./data/city.json"></combo>
+    </div>
   <div class="form-group">
     <label for="age">年龄</label>
     <input type="text" class="form-control" id="age" placeholder="年龄" v-model="form.age">

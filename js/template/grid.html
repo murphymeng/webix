@@ -1,3 +1,5 @@
+
+<div draggable="true"></div>
 <div id="grid">
     <button id="add" type="button" name="button"  class="btn btn-default"><a v-link="{ path: '/addUser' }">添加用户</a></button>
     <button id="add" type="button" name="button" v-on:click="addUser" class="btn btn-default">添加用户弹窗</button>
@@ -19,7 +21,7 @@
             <th>age</th>
             <th></th> -->
         </tr>
-        <tr v-for="item in items | orderBy sortKey sortOrders[sortKey] | filterBy filterKey 'name'">
+        <tr draggable="true" v-for="item in items | orderBy sortKey sortOrders[sortKey] | filterBy filterKey 'name'">
             <td><input type="checkbox" v-model="item.checked" /></td>
             <td>{{item.id}}</td>
             <td><a v-on:click="editUser(item)" style="cursor:pointer">{{item.name}} </a></td>

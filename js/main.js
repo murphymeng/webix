@@ -1,6 +1,7 @@
 window.jQuery = window.$ = require('./vendors/jquery.js');
 window.Vue = require('./vendors/vue.js');
 require('./vendors/bootstrap.js');
+require('./config.js');
 Vue.use(require('./vendors/vue-resource'));
 window.VueRouter = require('./vendors/vue-router.js');
 
@@ -53,5 +54,6 @@ $(document).ready(function() {
 // now we can start the app!
 // router will create an instance of App and mount to
 // the element matching the selector #app.
-    router.start(App, '#app')
+    router.start(App, '#app');
+    window.router = router;
 })
