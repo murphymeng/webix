@@ -16,8 +16,7 @@ var Form = Vue.extend({
     },
     methods: {
         submit: function() {
-            debugger
-            var a = 1;
+            this.$refs.myform.getValue();
         }
     },
     route:  {

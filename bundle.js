@@ -105,8 +105,9 @@
 	window.jQuery = window.$ = __webpack_require__(2);
 	window.Vue = __webpack_require__(3);
 	__webpack_require__(4);
-	Vue.use(__webpack_require__(5));
-	window.VueRouter = __webpack_require__(6);
+	__webpack_require__(5);
+	Vue.use(__webpack_require__(11));
+	window.VueRouter = __webpack_require__(12);
 
 	$(document).ready(function() {
 	    // var Foo = Vue.component('foo', function(resolve, reject) {
@@ -130,21 +131,21 @@
 	    router.map({
 	        '/form': {
 	            component: function(resolve) {
-	                __webpack_require__.e/* require */(1, function(__webpack_require__) { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(7)]; (function(form) {
+	                __webpack_require__.e/* require */(1, function(__webpack_require__) { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(13)]; (function(form) {
 	                    resolve(form);
 	                }.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));})
 	            }
 	        },
 	        '/grid': {
 	            component: function (resolve) {
-	                __webpack_require__.e/* require */(2, function(__webpack_require__) { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(9)]; (function(grid) {
+	                __webpack_require__.e/* require */(2, function(__webpack_require__) { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(15)]; (function(grid) {
 	                    resolve(grid);
 	                }.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));})
 	            }
 	        },
 	        '/addUser': {
 	            component: function (resolve) {
-	                __webpack_require__.e/* require */(3, function(__webpack_require__) { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(11)]; (function(grid) {
+	                __webpack_require__.e/* require */(3, function(__webpack_require__) { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(17)]; (function(grid) {
 	                    resolve(grid);
 	                }.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));})
 	            }
@@ -157,7 +158,8 @@
 	// now we can start the app!
 	// router will create an instance of App and mount to
 	// the element matching the selector #app.
-	    router.start(App, '#app')
+	    router.start(App, '#app');
+	    window.router = router;
 	})
 
 
@@ -18833,6 +18835,107 @@
 /* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
+	__webpack_require__(6);
+	__webpack_require__(9);
+
+
+/***/ },
+/* 6 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Field = __webpack_require__(7);
+	var Combo = Field.extend({
+	  template: __webpack_require__(8),
+	  props: [
+	    'name',
+	    'url'
+	  ],
+	  activate: function(done) {
+	      this.$http({url: this.url, method: 'GET'}).then(function (response) {
+	            this.$set('items', response.data);
+
+	      }, function (response) {
+	            // error callback
+	      });
+	      done();
+	  },
+	  methods: {
+	      mf: function() {
+	          this.$data.items.push({
+	              id: "aaa",
+	              name: '纽约'
+	          })
+	      }
+	  }
+	})
+
+	// register
+	Vue.component('combo', Combo)
+
+
+/***/ },
+/* 7 */
+/***/ function(module, exports) {
+
+	var Field = Vue.extend({
+	  template: "<div type='field'></div>",
+	  props: {
+	      type: {
+	          default: 'field'
+	      }
+	  },
+	  methods: {
+	  }
+	});
+
+	Vue.component('field', Field)
+
+	module.exports = Field;
+
+
+/***/ },
+/* 8 */
+/***/ function(module, exports) {
+
+	module.exports = "<select name=\"{{name}}\" v-model=\"value\">\n    <option v-for=\"item in items\" value=\"{{item.id}}\">{{item.name}}</option>\n</select>\n";
+
+/***/ },
+/* 9 */
+/***/ function(module, exports, __webpack_require__) {
+
+	Vue.component('vform', {
+	  template: __webpack_require__(10),
+	  props: [
+	    'url'
+	  ],
+	  activate: function(done) {
+	      done();
+	  },
+	  methods: {
+	      getValue: function() {
+	          var value = {};
+	          $.each(this.$children, function(idx, component) {
+	              if (component.type === 'field') {
+	                  value[component.name] = component.value;
+	              }
+	          })
+
+	          debugger
+	      }
+	  }
+	})
+
+
+/***/ },
+/* 10 */
+/***/ function(module, exports) {
+
+	module.exports = "<form>\n  <slot>\n  </slot>\n</form>\n";
+
+/***/ },
+/* 11 */
+/***/ function(module, exports, __webpack_require__) {
+
 	/**
 	 * vue-resource v0.7.0
 	 * https://github.com/vuejs/vue-resource
@@ -20522,7 +20625,7 @@
 
 
 /***/ },
-/* 6 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*!

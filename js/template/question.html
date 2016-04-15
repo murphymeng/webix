@@ -1,0 +1,49 @@
+<button v-on:click="submit">提交</button>
+<template v-for="questionGroup in questionGroupArr">
+<fieldset>
+    <legend>{{questionGroup.label}}</legend>
+
+    <div style="margin-top:20px" class="question-container" v-for="question in questionGroup.questions">
+        <fieldset class='fieldset-related'  id={{question.id}} data-recordid="{{question.currentRecordId}}" data-telephonetype="{{question.currentTelephoneType}}" data-phone="{{question.currentPhone}}" data-questiontype="{{question.questionType}}" data-answertype="{{question.answerType}}">
+            <legend v-if="question.answerType !== 'HTML_BLANK'" class='legend-inherit'>
+                {{question.id}} <span class="question-desc">{{question.description}}</span>
+                <template v-if="question.questionType === 'CROSS_QUESTION'">
+                <label class="question-remark-label">备注:</label>
+                <input class="question-remark" value="<%=question.currentRemark%>"
+                       data-dojo-type="dijit/form/TextBox"    />
+                </template>
+            </legend>
+            <!--单选框-->
+            <div class="fieldset-related-container">
+                <div v-if="question.answerType === 'HTML_TEXT'" class="fieldset-related-container">
+                    <textarea data-parentid="{{question.id}}"  id='{{question.id + ';;'}}' data-dojo-type="dijit/form/Textarea" name="{{question.id}}" value='{{question.currentAnswerDesc}}'></textarea>
+                </div>
+                <div v-if="question.answerType === 'HTML_BLANK'" class="fieldset-related-container">
+                    {{question.id}} {{question.description}}
+                </div>
+                <template v-if="question.answerType === 'HTML_RADIO_GROUP'">
+                <template  v-for="answer in question.answerList">
+                <input :value="{description: answer.description, selectedAnswer: answer.id}" v-model="question.selectedAnswer" data-desc="{{answer.description}}" data-parentid="{{question.id}}" type="radio" name="{{question.id}}"  value="{{answer.id}}"
+                id='{{question.id}};{{answer.id}};{{answer.subQuestionId}}' class='{{answer.subQuestionId}}' />
+                <label for="">{{answer.description}}</label>
+                </template>
+                </template>
+
+                <template v-if="question.answerType === 'HTML_MULTI'">
+                <template v-for="answer in question.answerList">
+                <input v-model="question.answerId" value="{{answer.id}}" data-desc="{{answer.description}}" data-parentid="{{question.id}}" type="checkbox" name="{{question.id}}"
+                id='{{question.id}};{{answer.id}};{{answer.subQuestionId}}' class='{{answer.subQuestionId}}' />
+                <label for="">{{answer.description}}</label>
+                </template>
+                </template>
+
+            </div>
+        </fieldset>
+    </div>
+
+
+</fieldset>
+</template>
+
+<input id="mf1" value="a" type="checkbox" name="aasdf"  v-model="aa"/>
+<input id="mf2" value="b" type="checkbox" name="aasdf" v-model="aa"/>

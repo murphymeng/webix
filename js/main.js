@@ -46,8 +46,12 @@ $(document).ready(function() {
                 })
             }
         },
-        '/bar': {
-            component: Bar
+        '/question': {
+            component: function (resolve) {
+                require(['./views/question'], function(question) {
+                    resolve(question);
+                })
+            }
         }
     })
 

@@ -7,8 +7,15 @@ Vue.component('vform', {
       done();
   },
   methods: {
-      getValues: function() {
-          
+      getValue: function() {
+          var value = {};
+          $.each(this.$children, function(idx, component) {
+              if (component.type === 'field') {
+                  value[component.name] = component.value;
+              }
+          })
+
+          return value;
       }
   }
 })
