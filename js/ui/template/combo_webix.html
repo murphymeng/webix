@@ -1,0 +1,26 @@
+<div class="webix_view webix_control webix_el_combo" view_id="$combo1" style="border-width: 0px; width: 200px; height: 38px;">
+    <div class="webix_el_box" style="width:200px">
+        <input v-on:input="change(selectedItem.name)" v-on:blur="onBlur($event)"  v-model="selectedItem.name" id="fruit" type="combo" style="width: 171px; text-align: left;">
+        <span v-on:click="onArrowClick" style="height:26px;padding-top:6px;" class="webix_input_icon fa-angle-down">
+        </span>
+    </div>
+</div>
+<div v-if="showList" class="webix_view webix_window webix_popup" view_id="$suggest1" style="border-width: 1px; display: block; width: 214px; height: 118px; z-index: 100;">
+    <div class="webix_win_content" style="padding: 8px;">
+        <div class="webix_view webix_list" view_id="$suggest1_list" style="overflow: hidden; width: 198px; height: 102px;">
+            <div class="webix_scroll_cont">
+                <div v-for="item in showItems" v-on:click="setItem(item)" class="webix_list_item " style="width:auto; height:34px; overflow:hidden;">{{item.name}}</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style media="screen">
+    .webix_list_item:hover {
+        background: #27ae60;
+        color: white;
+    }
+    .webix_input_icon:hover {
+        cursor: pointer;
+    }
+</style>

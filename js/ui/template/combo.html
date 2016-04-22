@@ -1,26 +1,188 @@
-<div class="webix_view webix_control webix_el_combo" view_id="$combo1" style="border-width: 0px; width: 200px; height: 38px;">
-    <div class="webix_el_box" style="width:200px">
-        <input v-on:input="change(selectedItem.name)" v-on:blur="onBlur($event)"  v-model="selectedItem.name" id="fruit" type="combo" style="width: 171px; text-align: left;">
-        <span v-on:click="onArrowClick" style="height:26px;padding-top:6px;" class="webix_input_icon fa-angle-down">
-        </span>
+<div style='{{style}}' class="combo-body x-form-item-body x-form-item-body-default x-form-text-field-body x-form-text-field-body-default ">
+    <div  data-ref="triggerWrap"  class="x-form-trigger-wrap x-form-trigger-wrap-default">
+        <div  data-ref="inputWrap"  class="x-form-text-wrap x-form-text-wrap-default">
+            <input v-model="selectedItem.name" type="text" size="1" class="x-form-field x-form-text x-form-text-default " autocomplete="off">
+        </div>
+        <div @click="toggleList" class="x-form-trigger x-form-trigger-default x-form-arrow-trigger x-form-arrow-trigger-default  x-form-trigger-click">
+        </div>
+    </div>
+    <div data-ref="ariaErrorEl"  aria-live="polite" class="x-hidden-clip">
     </div>
 </div>
-<div v-if="showList" class="webix_view webix_window webix_popup" view_id="$suggest1" style="border-width: 1px; display: block; width: 214px; height: 118px; z-index: 100;">
-    <div class="webix_win_content" style="padding: 8px;">
-        <div class="webix_view webix_list" view_id="$suggest1_list" style="overflow: hidden; width: 198px; height: 102px;">
-            <div class="webix_scroll_cont">
-                <div v-for="item in showItems" v-on:click="setItem(item)" class="webix_list_item " style="width:auto; height:34px; overflow:hidden;">{{item.name}}</div>
-            </div>
-        </div>
+<div v-show="showList" class="x-boundlist x-boundlist-floating x-layer x-boundlist-default x-border-box" style="right: auto;z-index: 19000;overflow-y: scroll"  tabindex="-1">
+    <div  data-ref="listWrap" class="x-boundlist-list-ct x-unselectable" style="overflow: auto;">
+        <ul  data-ref="listEl" class="x-list-plain"  aria-hidden="true" aria-disabled="false">
+            <li v-for="item in showItems" v-on:click="setItem(item)"  class="x-boundlist-item" tabindex="-1">{{item.name}}</li>
+        </ul>
     </div>
 </div>
 
 <style media="screen">
-    .webix_list_item:hover {
-        background: #27ae60;
-        color: white;
-    }
-    .webix_input_icon:hover {
-        cursor: pointer;
-    }
+
+.x-list-plain {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.x-boundlist-item {
+    padding: 0 10px;
+    font: normal 13px 'Open Sans', 'Helvetica Neue', helvetica, arial, verdana, sans-serif;
+    line-height: 30px;
+    cursor: pointer;
+    position: relative;
+    border-width: 1px;
+    outline: none;
+}
+
+.x-boundlist-item:hover {
+    color: #fff;
+    background: #7fb5e4;
+    border-color: #7fb5e4;
+    outline: none;
+}
+
+.x-boundlist-floating {
+    border-top-width: 0;
+}
+
+.x-boundlist {
+    border-width: 1px;
+    border-style: solid;
+    border-color: #d0d0d0;
+    background: #fff;
+    outline: none;
+}
+
+.x-layer {
+    position: absolute !important;
+    overflow: hidden;
+}
+
+.x-form-trigger-wrap-default {
+    border-width: 1px;
+    border-style: solid;
+    border-color: #d0d0d0;
+}
+
+.x-form-trigger-wrap {
+    display: table;
+    width: 100%;
+    height: 100%;
+}
+.x-border-box, .x-border-box * {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+
+.x-form-text-field-body-default {
+    min-width: 170px;
+}
+
+.x-form-text-default {
+    color: #404040;
+    padding: 5px 10px 4px;
+    background-color: #fff;
+    font: 300 13px/21px 'Open Sans', 'Helvetica Neue', helvetica, arial, verdana, sans-serif;
+    min-height: 30px;
+}
+
+.x-form-text {
+    border: 0;
+    margin: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    -ms-border-radius: 0;
+    -o-border-radius: 0;
+    border-radius: 0;
+    display: block;
+    background: repeat-x 0 0;
+    width: 100%;
+    height: 100%;
+}
+
+.x-webkit .x-form-text {
+    height: calc(100% + 3px);
+}
+
+.x-form-trigger.x-form-trigger-default.x-form-trigger-click {
+    background-position: -64px center;
+}
+.x-form-trigger-default {
+    width: 32px;
+    font: 16px/30px FontAwesome;
+    background: #fff;
+    color: #919191;
+}
+.x-form-trigger {
+    display: table-cell;
+    vertical-align: top;
+    cursor: pointer;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.x-border-box, .x-border-box * {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+.x-form-item {
+    display: table;
+    table-layout: fixed;
+    border-spacing: 0;
+    border-collapse: separate;
+}
+
+.x-form-layout-wrap {
+    border-spacing: 10px;
+}
+
+.x-form-layout-wrap {
+    display: table;
+    width: 100%;
+    border-collapse: separate;
+}
+
+.x-panel-body-default {
+    background: #fff;
+    border-color: #d0d0d0;
+    color: #404040;
+    font-size: 13px;
+    font-weight: 300;
+    font-family: 'Open Sans', 'Helvetica Neue', helvetica, arial, verdana, sans-serif;
+    border-width: 1px;
+    border-style: solid;
+}
+.x-panel-body-default {
+    background: #fff;
+    border-color: #d0d0d0;
+    color: #404040;
+    font-size: 13px;
+    font-weight: 300;
+    font-family: 'Open Sans', 'Helvetica Neue', helvetica, arial, verdana, sans-serif;
+    border-width: 1px;
+    border-style: solid;
+}
+
+.x-body {
+    color: #404040;
+    font-size: 13px;
+    line-height: 17px;
+    font-weight: 300;
+    font-family: 'Open Sans', 'Helvetica Neue', helvetica, arial, verdana, sans-serif;
+    background: #f6f6f6;
+}
+
+.x-form-trigger-default:before {
+    content: "\f0d7";
+}
+
 </style>

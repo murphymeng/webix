@@ -2,11 +2,16 @@ var Field = require('./field');
 var Combo = Field.extend({
   template: require('./template/combo.html'),
   props: [
+    'style',
     'name',
     'url',
     'clicky'
   ],
+  created: function() {
+    
+  },
   activate: function(done) {
+      var self = this;
       this.$set('showList', false);
       this.$set('value', null);
       this.$http({url: this.url, method: 'GET'}).then(function (response) {
@@ -16,11 +21,27 @@ var Combo = Field.extend({
       }, function (response) {
             // error callback
       });
+    //   setTimeout(function () {
+    //       debugger
+    //       var combo = $(this.$el.parentElement).find('.combo-body');
+    //       var pos = combo.position();
+    //       var boundlist = $(this.$el.parentElement).find('.x-boundlist');
+    //       boundlist.offset({ top: pos.top + combo.height(), left: pos.left});
+    //   }, 1)
+
+
       done();
       $(this.$el.parentNode).mousedown(function(e) {
         // The latest element clicked
           self.clicky = $(e.target);
       });
+  },
+  ready: function() {
+      var combo = $(this.$el.parentElement).find('.combo-body');
+      var pos = combo.position();
+      var boundlist = $(this.$el.parentElement).find('.x-boundlist');
+      boundlist.offset({ top: pos.top + combo.height(), left: pos.left});
+      boundlist.width(combo.width() - 2);
   },
   methods: {
       set: function(field, value) {
@@ -53,15 +74,12 @@ var Combo = Field.extend({
            return this.selectedItem;
       },
       toggleList: function() {
-          if (!this.$data.showList) {
-               this.showItems = this.items;
-          }
           this.$data.showList = !this.$data.showList;
       },
       setItem: function(item) {
           var self = this;
           self.toggleList();
-          self.selectedItem = item;
+          self.$set('selectedItem', item);
       },
       change: function(value) {
           var self = this;
