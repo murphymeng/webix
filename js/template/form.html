@@ -5,19 +5,19 @@
     </div>
   <div class="form-group">
     <label for="age">年龄</label>
-    <input type="text" class="form-control" id="age" placeholder="年龄" v-model="form.age">
+    <input type="text" class="form-control" name="age" id="age" placeholder="年龄" v-model="form.age">
   </div>
   <div class="form-group">
     <label for="name">姓名</label>
-    <input type="text" class="form-control" id="name" placeholder="姓名" v-model="form.name">
+    <input type="text" class="form-control" name="name" id="name" placeholder="姓名" v-model="form.name">
   </div>
-  <div class="form-group">
+  <!-- <div class="form-group">
       <label for="city">城市</label>
       <select name="city" v-model="city" class="form-control">
           <option v-for="option in cities" v-bind:value="option.id">
             {{ option.name }}
           </option>
       </select>
-  </div>
+  </div> -->
   <button type="button" class="btn btn-default" v-on:click="submit">提交</button>
 </form>

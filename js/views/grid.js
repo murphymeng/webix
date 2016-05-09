@@ -17,6 +17,8 @@ var grid = Vue.extend({
             sortOrders[item.field] = 1
         });
         return {
+            totalCount: 30,
+            pageCount: 3,
             filterKey: '',
             columns: columns,
             items: [],

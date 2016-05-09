@@ -16,7 +16,7 @@ var Form = Vue.extend({
     },
     methods: {
         submit: function() {
-            this.$refs.myform.getValue();
+            console.log(this.$refs.myform.getValue());
         }
     },
     route:  {
